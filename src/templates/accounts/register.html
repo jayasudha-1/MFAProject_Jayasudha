@@ -1,0 +1,93 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <main class="form-signin bg-white p-4 shadow rounded">
+      <h1 class="h3 mb-4 text-center text-primary">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="App Logo" style="width: 80px;">
+        Join Our SafeHub App
+      </h1>
+      <p class="text-center text-muted">Create your account and start exploring today!</p>
+
+      <form role="form" method="post" action="">
+        {{ form.csrf_token }}
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          {{ form.username(placeholder="Choose a username", class="form-control") }}
+          {% if form.username.errors %}
+            {% for error in form.username.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="mb-3 position-relative">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            {{ form.password(placeholder="Create a password", class="form-control", id="password") }}
+            <button type="button" id="togglePassword" class="btn btn-outline-secondary" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          {% if form.password.errors %}
+            {% for error in form.password.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="mb-3 position-relative">
+          <label for="confirm" class="form-label">Confirm Password</label>
+          <div class="input-group">
+            {{ form.confirm(placeholder="Confirm your password", class="form-control", id="confirmPassword") }}
+            <button type="button" id="toggleConfirmPassword" class="btn btn-outline-secondary" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          {% if form.confirm.errors %}
+            {% for error in form.confirm.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+        <p class="text-center mt-3">Already have an account? 
+          <a href="{{ url_for('accounts.login') }}" class="text-primary">Log in here</a>
+        </p>
+      </form>
+    </main>
+  </div>
+</div>
+
+<!-- Include Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<script>
+  // Toggle password visibility for Password field
+  document.getElementById('togglePassword').addEventListener('click', function () {
+    const passwordField = document.getElementById('password');
+    const icon = this.querySelector('i');
+    const isPasswordVisible = passwordField.type === 'text';
+
+    passwordField.type = isPasswordVisible ? 'password' : 'text';
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+  });
+
+  // Toggle password visibility for Confirm Password field
+  document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+    const confirmPasswordField = document.getElementById('confirmPassword');
+    const icon = this.querySelector('i');
+    const isConfirmPasswordVisible = confirmPasswordField.type === 'text';
+
+    confirmPasswordField.type = isConfirmPasswordVisible ? 'password' : 'text';
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+  });
+</script>
+
+{% endblock %}

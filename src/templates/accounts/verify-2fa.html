@@ -1,0 +1,89 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #f9f9f9;
+    font-family: 'Arial', sans-serif;
+  }
+
+  h1 {
+    color: #007bff;
+    font-weight: bold;
+  }
+
+  .form-signin {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+  }
+
+  .form-floating {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 16px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  .alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    font-size: 14px;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .col-md-4 {
+    padding-top: 10%;
+  }
+</style>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <main class="form-signin w-100 m-auto">
+      <form role="form" method="post" action="">
+        {{ form.csrf_token }}
+        <h1 class="h3 mb-3 fw-normal text-center">Enter OTP</h1>
+
+        <div class="form-floating">
+          {{ form.otp(placeholder="Enter OTP", class="form-control mb-2") }}
+          {{ form.otp.label }}
+          {% if form.otp.errors %}
+            {% for error in form.otp.errors %}
+              <div class="alert alert-danger" role="alert">
+                {{ error }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <button class="btn btn-primary" type="submit">Verify</button>
+      </form>
+    </main>
+  </div>
+</div>
+
+{% endblock %}
